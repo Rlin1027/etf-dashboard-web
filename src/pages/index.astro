@@ -1,0 +1,25 @@
+---
+import EtfTabs from '../components/EtfTabs.jsx';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_KEY
+);
+
+const { data: etfList } = await supabase
+  .from('etf_list')
+  .select('code')
+  .order('code');
+---
+
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <title>台灣 ETF Dashboard</title>
+  </head>
+  <body>
+    <h1>台灣 ETF Dashboard</h1>
+    <EtfTabs etfList={etfList} client:load />
+  </body>
+</html>
