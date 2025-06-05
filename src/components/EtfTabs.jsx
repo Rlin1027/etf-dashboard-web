@@ -31,10 +31,24 @@ export default function EtfTabs({ etfList }) {
     const myChart = echarts.init(chartDom);
     myChart.setOption({
       title: { text: '成份股權重', left: 'center' },
+      tooltip: { trigger: 'item', formatter: '{b}: {d}%'},
+      legend: { orient: 'vertical', left: 'right' },
       series: [
         {
           type: 'pie',
-          radius: '60%',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          label: {
+            formatter: '{b}: {d}%',
+            color: '#333'
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
           data: data.map((d) => ({ value: d.weight, name: d.stock_name })),
         },
       ],
